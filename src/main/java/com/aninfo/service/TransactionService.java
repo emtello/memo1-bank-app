@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -40,6 +38,14 @@ public class TransactionService {
 
     public Optional<Transaction> findByTransactionId(Long id) {
         return transactionRepository.findById(id);
+    }
+
+    public List<Transaction> findByAccountCBU(Long cbu) {
+        return transactionRepository.findTransactionByAccountCBU(cbu);
+    }
+
+    public void deleteById(Long id) {
+        transactionRepository.deleteById(id);
     }
 
 }

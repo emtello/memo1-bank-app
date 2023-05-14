@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -53,6 +54,11 @@ public class Memo1BankApp {
 		return accountService.getAccounts();
 	}
 
+	@GetMapping("/transactions/cbu/{cbu}")
+	public List<Transaction> getTransactionsByAccountCbu(@PathVariable Long cbu) {
+		return transactionService.findByAccountCBU(cbu);
+	}
+
 	@GetMapping("/accounts/{cbu}")
 	public ResponseEntity<Account> getAccount(@PathVariable Long cbu) {
 		Optional<Account> accountOptional = accountService.findById(cbu);
@@ -80,6 +86,11 @@ public class Memo1BankApp {
 	@DeleteMapping("/accounts/{cbu}")
 	public void deleteAccount(@PathVariable Long cbu) {
 		accountService.deleteById(cbu);
+	}
+
+	@DeleteMapping("/transactions/{id}")
+	public void deleteTransaction(@PathVariable Long id) {
+		transactionService.deleteById(id);
 	}
 
 	@PutMapping("/accounts/{cbu}/withdraw")
